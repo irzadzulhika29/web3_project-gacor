@@ -74,7 +74,7 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button onClick={handleSubmit} size="md">
+            <Button onClick={handleSubmit} size="md" className="mx-auto block">
               Daftar
             </Button>
           </form>
