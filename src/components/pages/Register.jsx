@@ -13,47 +13,22 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Role:", role);
     console.log("Metamask:", metamask);
     console.log("Password:", password);
+    console.log("Role:", role);
   };
 
+  const isFormFilled = metamask && password;
+
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-        <h2 className="text-2xl font-semibold mb-4">Daftar Sebagai</h2>
+    <div className="relative flex items-center justify-center bg-gray-100 w-screen h-screen mx-auto">
+      <div className="flex w-[60%] h-[70%] shadow-lg rounded-lg overflow-hidden bg-white/50 backdrop-blur-lg">
+        {/* Kiri: Form */}
+        <div className="w-3/4 p-10 flex flex-col justify-center">
+          <h2 className="text-2xl font-semibold mb-6 text-black">
+            Daftar Akun
+          </h2>
 
-        <div className="mb-6">
-          <label className="font-montserrat text-gray-700 block mb-2">
-            Pilih Role
-          </label>
-          <div className="flex space-x-4">
-            <Button
-              onClick={(e) => handleRoleChange(e, "Pasien")}
-              size="sm"
-              className={`${
-                role === "Pasien"
-                  ? "bg-primary text-white"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              Pasien
-            </Button>
-            <Button
-              onClick={(e) => handleRoleChange(e, "Dokter")}
-              size="sm"
-              className={`${
-                role === "Dokter"
-                  ? "bg-primary text-white"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              Dokter
-            </Button>
-          </div>
-        </div>
-
-        {role && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               label="Metamask Address"
@@ -74,11 +49,52 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button onClick={handleSubmit} size="md" className="mx-auto block">
-              Daftar
-            </Button>
+            {isFormFilled && (
+              <div className="mt-6">
+                <label className="font-montserrat text-gray-700 block mb-2">
+                  Pilih Role
+                </label>
+                <div className="flex space-x-4">
+                  <Button
+                    onClick={(e) => handleRoleChange(e, "Pasien")}
+                    size="sm"
+                    className={`${
+                      role === "Pasien"
+                        ? "bg-primary text-white"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
+                    Pasien
+                  </Button>
+                  <Button
+                    onClick={(e) => handleRoleChange(e, "Dokter")}
+                    size="sm"
+                    className={`${
+                      role === "Dokter"
+                        ? "bg-primary text-white"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
+                  >
+                    Dokter
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {role && (
+              <Button type="submit" size="md" className="mx-auto block mt-6">
+                Daftar
+              </Button>
+            )}
           </form>
-        )}
+        </div>
+
+        {/* Kanan: Box Tambahan */}
+        <div className="w-1/2 bg-gray-200 p-12 flex items-center justify-center">
+          <p className="text-center text-gray-600 text-sm">
+            Konten tambahan di sini (gambar, info, atau dekorasi).
+          </p>
+        </div>
       </div>
     </div>
   );
