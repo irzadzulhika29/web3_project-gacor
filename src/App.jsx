@@ -6,8 +6,8 @@ import Register from "./components/pages/register";
 
 function App() {
   return (
-    <div className="min-h-screen min-w-screen flex items-center justify-center bg-white">
-      <Register />
+    <div className="min-h-screen min-w-screen flex items-center justify-center bg-white font-montserrat">
+      <Login />
     </div>
   );
 }

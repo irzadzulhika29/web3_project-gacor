@@ -22,7 +22,7 @@ const Button = ({ children, onClick, size = "md", className = "" }) => {
   return (
     <button
       onClick={onClick}
-      className={`${backgroundClass} ${hoverClass} text-cyan-200 font-montserrat font-bold rounded-full transition-all duration-300 focus:ring-4 focus:ring-primary focus:outline-none ${sizeClass[size]} ${className}`}
+      className={`${backgroundClass} ${hoverClass} text-white font-montserrat font-bold rounded-full transition-all duration-300 focus:ring-4 focus:ring-primary focus:outline-none ${sizeClass[size]} ${className}`}
     >
       {children}
     </button>

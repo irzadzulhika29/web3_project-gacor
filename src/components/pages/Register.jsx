@@ -1,100 +1,138 @@
 import React, { useState } from "react";
 import Input from "./../atoms/Input";
 import Button from "./../atoms/Button";
+import ethealth from "../../assets/ethealth.png";
 
 const Register = () => {
-  const [role, setRole] = useState("");
+  const [name, setName] = useState("");
   const [metamask, setMetamask] = useState("");
-  const [password, setPassword] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [role, setRole] = useState("");
+  const [error, setError] = useState("");
 
-  const handleRoleChange = (e, selectedRole) => {
-    setRole(selectedRole);
-  };
-
-  const handleSubmit = (e) => {
+  const handleInitialSubmit = (e) => {
     e.preventDefault();
-    console.log("Metamask:", metamask);
-    console.log("Password:", password);
-    console.log("Role:", role);
+    if (!name || !metamask) {
+      setError("Name and Metamask are required.");
+    } else {
+      setError("");
+      setSubmitted(true);
+    }
   };
 
-  const isFormFilled = metamask && password;
+  const handleFinalSubmit = (e) => {
+    e.preventDefault();
+    if (!role) {
+      setError("Please select a role before continuing.");
+    } else {
+      setError("");
+      console.log("Name:", name);
+      console.log("Metamask:", metamask);
+      console.log("Role:", role);
+      // Lanjutkan ke halaman berikutnya atau kirim data ke backend
+    }
+  };
+
+  const handleRoleChange = (selectedRole) => {
+    setRole(selectedRole);
+    setError(""); // Bersihkan error saat memilih role
+  };
 
   return (
-    <div className="relative flex items-center justify-center bg-gray-100 w-screen h-screen mx-auto">
-      <div className="flex w-[60%] h-[70%] shadow-lg rounded-lg overflow-hidden bg-white/50 backdrop-blur-lg">
+    <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-r from-cyan-100 to-cyan-200">
+      <div className="flex w-[70%] h-[75%] shadow-lg rounded-lg overflow-hidden">
         {/* Kiri: Form */}
-        <div className="w-3/4 p-10 flex flex-col justify-center">
-          <h2 className="text-2xl font-semibold mb-6 text-black">
-            Daftar Akun
-          </h2>
+        <div className="w-1/2 bg-white/65 backdrop-blur-md p-10 flex flex-col">
+          <div className="">
+            <img src={ethealth} alt="Logo" className="w-64" />
+          </div>
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <h2 className="text-3xl font-black text-center mb-6 text-gray-800">
+              Registration
+            </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              label="Metamask Address"
-              name="metamask"
-              size="sm"
-              placeholder="Masukkan alamat Metamask"
-              value={metamask}
-              onChange={(e) => setMetamask(e.target.value)}
-            />
+            {error && (
+              <p className="text-red-600 font-medium mb-4 text-center">
+                {error}
+              </p>
+            )}
 
-            <Input
-              label="Password"
-              name="password"
-              size="sm"
-              type="password"
-              placeholder="Masukkan Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            {isFormFilled && (
-              <div className="mt-6">
-                <label className="font-montserrat text-gray-700 block mb-2">
-                  Pilih Role
-                </label>
-                <div className="flex space-x-4">
+            {!submitted ? (
+              <form
+                onSubmit={handleInitialSubmit}
+                className="w-full max-w-lg space-y-6 px-4"
+              >
+                <Input
+                  label="Name"
+                  name="name"
+                  size="md"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                  label="Metamask"
+                  name="metamask"
+                  size="md"
+                  placeholder="Enter Metamask address"
+                  value={metamask}
+                  onChange={(e) => setMetamask(e.target.value)}
+                />
+                <Button type="submit" size="lg" className="w-full mt-6">
+                  Registration
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={handleFinalSubmit} className="w-full px-4">
+                <p className="text-center font-semibold text-xl text-gray-700 mb-4">
+                  Choose your role:
+                </p>
+                <div className="flex justify-center space-x-4 mb-6">
                   <Button
-                    onClick={(e) => handleRoleChange(e, "Pasien")}
+                    type="button"
+                    onClick={() => handleRoleChange("Patient")}
                     size="sm"
-                    className={`${
-                      role === "Pasien"
-                        ? "bg-primary text-white"
-                        : "bg-gray-200 text-gray-700"
+                    className={`rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none ${
+                      role === "Patient"
+                        ? "bg-[#42E8E0] text-white hover:bg-[#3cd7d1]"
+                        : "bg-gray-500 text-gray-700 hover:bg-[#3cd7d1]"
                     }`}
                   >
-                    Pasien
+                    Patient
                   </Button>
                   <Button
-                    onClick={(e) => handleRoleChange(e, "Dokter")}
+                    type="button"
+                    onClick={() => handleRoleChange("Doctor")}
                     size="sm"
-                    className={`${
-                      role === "Dokter"
-                        ? "bg-primary text-white"
-                        : "bg-gray-200 text-gray-700"
+                    className={`rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none ${
+                      role === "Doctor"
+                        ? "bg-[#42E8E0] text-white hover:bg-[#3cd7d1]"
+                        : "bg-gray-500 text-gray-700 hover:bg-[#3cd7d1]"
                     }`}
                   >
-                    Dokter
+                    Doctor
                   </Button>
                 </div>
-              </div>
-            )}
 
-            {role && (
-              <Button type="submit" size="md" className="mx-auto block mt-6">
-                Daftar
-              </Button>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className={`w-full px-4 py-2 transition-colors duration-200 ${
+                    role
+                      ? "text-white"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed pointer-events-none"
+                  } focus:outline-none`}
+                  disabled={!role}
+                >
+                  Submit Role
+                </Button>
+              </form>
             )}
-          </form>
+          </div>
         </div>
 
-        {/* Kanan: Box Tambahan */}
-        <div className="w-1/2 bg-gray-200 p-12 flex items-center justify-center">
-          <p className="text-center text-gray-600 text-sm">
-            Konten tambahan di sini (gambar, info, atau dekorasi).
-          </p>
-        </div>
+        {/* Kanan: Kosong atau Dekorasi */}
+        <div className="w-1/2 bg-gradient-to-br from-cyan-100 to-cyan-200"></div>
       </div>
     </div>
   );
