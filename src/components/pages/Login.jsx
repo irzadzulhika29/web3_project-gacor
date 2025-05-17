@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from "./../atoms/Input";
 import Button from "./../atoms/Button";
-import metamaskLogo from "../../assets/metamask-icon.svg";
+import metamaskLogo from "../../assets/icons/metamask-icon.svg";
 import ethealth from "../../assets/ethealth.png";
 
 const Login = () => {

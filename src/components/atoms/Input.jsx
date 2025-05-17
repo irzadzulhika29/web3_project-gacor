@@ -33,7 +33,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`border-2 border-gray-500 text-black rounded-md focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300 ${sizeClass[size]}`}
+        className={`border-2 border-gray-500 text-black rounded-lg focus:outline-none focus:ring-1 focus:ring-primary transition-all duration-300 ${sizeClass[size]}`}
       />
     </div>
   );
